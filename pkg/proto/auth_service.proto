@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package playingwithgolang.grpc;
+option go_package = "github.com/caiofernandes00/playing-with-golang/grpc/proto/pb";
+
+message LoginRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message LoginResponse {
+    string access_token = 1;
+}
+
+service AuthService {
+    rpc Login(LoginRequest) returns (LoginResponse);
+}

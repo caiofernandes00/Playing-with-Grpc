@@ -19,3 +19,9 @@
 
 # Go workspace file
 go.work
+
+# Others
+tmp/*.bin
+tmp/*.json
+*.jpg
+!angry-cat.jpg
