@@ -20,3 +20,8 @@ client-upload:
 
 client-rate:
 	go run cmd/client/main.go -address 0.0.0.0:8080 -operation rate
+
+cert:
+	./cert/gen.sh
+
+.PHONY: protogen test server client-create client-search client-upload client-rate cert
