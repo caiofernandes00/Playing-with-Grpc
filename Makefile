@@ -1,6 +1,8 @@
 protogen:
 	protoc --proto_path=pkg/proto --go_out=pkg/proto/pb --go_opt=paths=source_relative \
 	--go-grpc_out=pkg/proto/pb --go-grpc_opt=paths=source_relative,require_unimplemented_servers=false \
+	--grpc-gateway_out pkg/proto/pb --grpc-gateway_opt paths=source_relative \
+	--openapiv2_out pkg/proto/openapi --openapiv2_opt logtostderr=true \
 	pkg/proto/*.proto
 
 test:

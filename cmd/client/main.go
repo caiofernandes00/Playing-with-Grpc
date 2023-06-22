@@ -79,11 +79,10 @@ const (
 )
 
 func accessibleRoles() map[string]bool {
-	const laptopServicePath = "/playingwithgolang.grpc.LaptopService/"
 	return map[string]bool{
-		laptopServicePath + "CreateLaptop": true,
-		laptopServicePath + "UploadImage":  true,
-		laptopServicePath + "RateLaptop":   true,
+		pb.LaptopService_CreateLaptop_FullMethodName: true,
+		pb.LaptopService_UploadImage_FullMethodName:  true,
+		pb.LaptopService_RateLaptop_FullMethodName:   true,
 	}
 }
 

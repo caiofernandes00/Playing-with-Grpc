@@ -43,11 +43,10 @@ func seedUsers(userStore repository.UserStore) error {
 }
 
 func accessibleRoles() map[string][]string {
-	const laptopServicePath = "/playingwithgolang.grpc.LaptopService/"
 	return map[string][]string{
-		laptopServicePath + "CreateLaptop": {"admin"},
-		laptopServicePath + "UploadImage":  {"admin"},
-		laptopServicePath + "RateLaptop":   {"admin", "user"},
+		pb.LaptopService_CreateLaptop_FullMethodName: {"admin"},
+		pb.LaptopService_UploadImage_FullMethodName:  {"admin"},
+		pb.LaptopService_RateLaptop_FullMethodName:   {"admin", "user"},
 	}
 }
 
