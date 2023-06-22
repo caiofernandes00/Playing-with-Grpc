@@ -8,8 +8,11 @@ protogen:
 test:
 	go test -cover -race ./...
 
-server:
-	go run cmd/server/main.go -port 8080 -tls true
+server-grpc:
+	go run cmd/server/main.go -port 8080 -tls true -type grpc
+
+server-rest:
+	go run cmd/server/main.go -port 8080 -tls false -type rest
 
 client-create:
 	go run cmd/client/main.go -address 0.0.0.0:8080 -operation create -tls true
@@ -26,4 +29,4 @@ client-rate:
 cert:
 	./cert/gen.sh
 
-.PHONY: protogen test server client-create client-search client-upload client-rate cert
+.PHONY: protogen test server-grpc server-rest client-create client-search client-upload client-rate cert
