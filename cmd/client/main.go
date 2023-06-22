@@ -109,15 +109,22 @@ func loatTLSCertificates() (credentials.TransportCredentials, error) {
 func main() {
 	serverAddress := flag.String("address", "", "the server address")
 	operation := flag.String("operation", "", "which operation to do")
+	enableTLS := flag.Bool("tls", false, "enable SSL/TLS")
 	flag.Parse()
-	log.Printf("dial server %s", *serverAddress)
+	log.Printf("dial server %s, TLS: %t", *serverAddress, *enableTLS)
 
-	tlsCredentials, err := loatTLSCertificates()
-	if err != nil {
-		log.Fatal("cannot load TLS certificates: ", err)
+	transportOption := grpc.WithInsecure()
+
+	if *enableTLS {
+		tlsCredentials, err := loatTLSCertificates()
+		if err != nil {
+			log.Fatal("cannot load TLS certificates: ", err)
+		}
+
+		transportOption = grpc.WithTransportCredentials(tlsCredentials)
 	}
 
-	cc1, err := grpc.Dial(*serverAddress, grpc.WithTransportCredentials(tlsCredentials))
+	cc1, err := grpc.Dial(*serverAddress, transportOption)
 	if err != nil {
 		log.Fatal("cannot dial server: ", err)
 	}
@@ -129,7 +136,7 @@ func main() {
 	}
 
 	cc2, err := grpc.Dial(
-		*serverAddress, grpc.WithTransportCredentials(tlsCredentials),
+		*serverAddress, transportOption,
 		grpc.WithUnaryInterceptor(interceptor.Unary()),
 		grpc.WithStreamInterceptor(interceptor.Stream()),
 	)
